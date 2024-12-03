@@ -234,7 +234,7 @@ class _ElementHandler extends StatelessWidget {
             ),
             onDragUpdate: (details) {
               if (!isDragging) {
-                DrawingArrow.instance.params = ArrowParams(
+                DrawingArrow.instance.params = dashboard.arrowParams.copyWith(
                   startArrowPosition: alignment,
                   endArrowPosition: Alignment.center,
                 );
