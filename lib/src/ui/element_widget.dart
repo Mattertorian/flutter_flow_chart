@@ -201,11 +201,13 @@ class _ElementWidgetState extends State<ElementWidget> {
       onPointerUp: (event) {
         // widget.dashboard.setElementResizable(widget.element, false);
       },
-      child: const Align(
+      child: Align(
         alignment: Alignment.bottomRight,
         child: HandlerWidget(
-          width: 30,
-          height: 30,
+          params: widget.dashboard.handlerParams.copyWith(
+            width: 30,
+            height: 30,
+          ),
           icon: Icon(Icons.compare_arrows),
         ),
       ),
@@ -217,11 +219,13 @@ class _ElementWidgetState extends State<ElementWidget> {
       onPointerUp: (event) {
         widget.dashboard.removeElement(widget.element);
       },
-      child: const Align(
+      child: Align(
         alignment: Alignment.bottomLeft,
         child: HandlerWidget(
-          width: 30,
-          height: 30,
+          params: widget.dashboard.handlerParams.copyWith(
+            width: 30,
+            height: 30,
+          ),
           icon: Icon(Icons.delete_outline),
         ),
       ),

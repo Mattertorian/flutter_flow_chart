@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_flow_chart/flutter_flow_chart.dart';
+import 'package:flutter_flow_chart/src/ui/handler_widget.dart';
 import 'package:flutter_flow_chart/src/ui/segment_handler.dart';
 import 'package:uuid/uuid.dart';
 
@@ -25,10 +26,12 @@ class Dashboard extends ChangeNotifier {
       {Offset? handlerFeedbackOffset,
       this.blockDefaultZoomGestures = false,
       this.minimumZoomFactor = 0.25,
-      ArrowParams? defaultArrowParams,
+      ArrowParams? arrowParams,
+      HandlerParams? handlerParams,
       GridBackgroundParams? gridBackground})
       : elements = [],
-        defaultArrowParams = defaultArrowParams ?? ArrowParams(),
+        arrowParams = arrowParams ?? ArrowParams(),
+        handlerParams = handlerParams ?? HandlerParams(),
         _dashboardPosition = Offset.zero,
         dashboardSize = Size.zero,
         gridBackgroundParams = gridBackground ?? GridBackgroundParams() {
@@ -53,9 +56,12 @@ class Dashboard extends ChangeNotifier {
   ///
   factory Dashboard.fromMap(Map<String, dynamic> map) {
     final d = Dashboard(
-      // defaultArrowParams: ArrowStyle.values[map['arrowStyle'] as int? ?? 0],
-      defaultArrowParams: ArrowParams.fromMap(
-        map['defaultArrowParams'] as Map<String, dynamic>,
+      // arrowParams: ArrowStyle.values[map['arrowStyle'] as int? ?? 0],
+      arrowParams: ArrowParams.fromMap(
+        map['arrowParams'] as Map<String, dynamic>,
+      ),
+      handlerParams: HandlerParams.fromMap(
+        map['handlerParams'] as Map<String, dynamic>,
       ),
     )
       ..elements = List<FlowElement>.from(
@@ -94,7 +100,10 @@ class Dashboard extends ChangeNotifier {
   Size dashboardSize;
 
   /// The default style for the new created arrow
-  final ArrowParams defaultArrowParams;
+  final ArrowParams arrowParams;
+
+  /// The styling params for the handlers.
+  final HandlerParams handlerParams;
 
   /// [handlerFeedbackOffset] sets an offset for the handler when user
   /// is dragging it.
@@ -213,7 +222,7 @@ class Dashboard extends ChangeNotifier {
     }
   }
 
-  /// Set a new [style] to the arrow staring from the [handler] of [src]
+  /// Set a new [style] to the arrow starting from the [handler] of [src]
   /// element.
   /// If [notify] is true the dasboard is refreshed.
   /// The [tension] parameter is used when [style] is [ArrowStyle.segmented] to
@@ -575,7 +584,7 @@ class Dashboard extends ChangeNotifier {
       'gridBackgroundParams': gridBackgroundParams.toMap(),
       'blockDefaultZoomGestures': blockDefaultZoomGestures,
       'minimumZoomFactor': minimumZoomFactor,
-      'arrowParams': defaultArrowParams,
+      'arrowParams': arrowParams,
     };
   }
 

@@ -158,7 +158,7 @@ class _ElementHandler extends StatelessWidget {
           DrawingArrow.instance.setParams(
             DrawingArrow.instance.params.copyWith(
               endArrowPosition: alignment,
-              style: dashboard.defaultArrowParams.style,
+              style: dashboard.arrowParams.style,
             ),
           );
           return element != details.data['srcElement'] as FlowElement;
@@ -176,7 +176,7 @@ class _ElementHandler extends StatelessWidget {
           DrawingArrow.instance.setParams(
             DrawingArrow.instance.params.copyWith(
               endArrowPosition: Alignment.center,
-              style: dashboard.defaultArrowParams.style,
+              style: dashboard.arrowParams.style,
             ),
           );
         },
@@ -185,9 +185,7 @@ class _ElementHandler extends StatelessWidget {
             feedback: const SizedBox.shrink(),
             feedbackOffset: dashboard.handlerFeedbackOffset,
             childWhenDragging: HandlerWidget(
-              width: handlerSize,
-              height: handlerSize,
-              backgroundColor: Colors.blue,
+              params: dashboard.handlerParams,
             ),
             data: {
               'srcElement': element,
@@ -231,8 +229,7 @@ class _ElementHandler extends StatelessWidget {
                 );
               },
               child: HandlerWidget(
-                width: handlerSize,
-                height: handlerSize,
+                params: dashboard.handlerParams,
               ),
             ),
             onDragUpdate: (details) {
