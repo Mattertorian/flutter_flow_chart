@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_flow_chart/flutter_flow_chart.dart';
+import 'package:flutter_flow_chart/src/ui/draw_arrow.dart';
 import 'package:flutter_flow_chart/src/ui/handler_widget.dart';
 import 'package:flutter_flow_chart/src/ui/segment_handler.dart';
 import 'package:uuid/uuid.dart';
@@ -51,6 +52,8 @@ class Dashboard extends ChangeNotifier {
         }
       }
     }
+
+    DrawingArrow.instance.params = this.arrowParams;
   }
 
   ///
