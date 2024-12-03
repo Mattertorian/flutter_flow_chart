@@ -25,8 +25,9 @@ class Dashboard extends ChangeNotifier {
     Offset? handlerFeedbackOffset,
     this.blockDefaultZoomGestures = false,
     this.minimumZoomFactor = 0.25,
-    this.defaultArrowStyle = ArrowStyle.curve,
+    ArrowParams? defaultArrowParams,
   })  : elements = [],
+        defaultArrowParams = defaultArrowParams ?? ArrowParams(),
         _dashboardPosition = Offset.zero,
         dashboardSize = Size.zero,
         gridBackgroundParams = GridBackgroundParams() {
@@ -51,7 +52,10 @@ class Dashboard extends ChangeNotifier {
   ///
   factory Dashboard.fromMap(Map<String, dynamic> map) {
     final d = Dashboard(
-      defaultArrowStyle: ArrowStyle.values[map['arrowStyle'] as int? ?? 0],
+      // defaultArrowParams: ArrowStyle.values[map['arrowStyle'] as int? ?? 0],
+      defaultArrowParams: ArrowParams.fromMap(
+        map['defaultArrowParams'] as Map<String, dynamic>,
+      ),
     )
       ..elements = List<FlowElement>.from(
         (map['elements'] as List<dynamic>).map<FlowElement>(
@@ -89,7 +93,7 @@ class Dashboard extends ChangeNotifier {
   Size dashboardSize;
 
   /// The default style for the new created arrow
-  final ArrowStyle defaultArrowStyle;
+  final ArrowParams defaultArrowParams;
 
   /// [handlerFeedbackOffset] sets an offset for the handler when user
   /// is dragging it.
@@ -570,7 +574,7 @@ class Dashboard extends ChangeNotifier {
       'gridBackgroundParams': gridBackgroundParams.toMap(),
       'blockDefaultZoomGestures': blockDefaultZoomGestures,
       'minimumZoomFactor': minimumZoomFactor,
-      'arrowStyle': defaultArrowStyle.index,
+      'arrowParams': defaultArrowParams,
     };
   }
 

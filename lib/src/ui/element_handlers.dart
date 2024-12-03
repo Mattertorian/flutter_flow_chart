@@ -158,7 +158,7 @@ class _ElementHandler extends StatelessWidget {
           DrawingArrow.instance.setParams(
             DrawingArrow.instance.params.copyWith(
               endArrowPosition: alignment,
-              style: dashboard.defaultArrowStyle,
+              style: dashboard.defaultArrowParams.style,
             ),
           );
           return element != details.data['srcElement'] as FlowElement;
@@ -176,7 +176,7 @@ class _ElementHandler extends StatelessWidget {
           DrawingArrow.instance.setParams(
             DrawingArrow.instance.params.copyWith(
               endArrowPosition: Alignment.center,
-              style: dashboard.defaultArrowStyle,
+              style: dashboard.defaultArrowParams.style,
             ),
           );
         },

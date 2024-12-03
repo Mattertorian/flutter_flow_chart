@@ -353,7 +353,7 @@ class _FlowChartState extends State<FlowChart> {
                     onPivotSecondaryPressed: widget.onPivotSecondaryPressed,
                   ),
           // user drawing when connecting elements
-          DrawingArrowWidget(style: widget.dashboard.defaultArrowStyle),
+          DrawingArrowWidget(style: widget.dashboard.defaultArrowParams.style),
         ],
       ),
     );
