@@ -303,7 +303,9 @@ class ArrowPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..strokeWidth = params.thickness;
+    final paint = Paint()
+      ..strokeWidth = params.thickness
+      ..color = params.color;
 
     if (params.style == ArrowStyle.curve) {
       drawCurve(canvas, paint);
