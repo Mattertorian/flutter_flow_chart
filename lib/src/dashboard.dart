@@ -541,21 +541,23 @@ class Dashboard extends ChangeNotifier {
   /// make an arrow connection from [sourceElement] to
   /// the elements with id [destId]
   /// [arrowParams] definition of arrow parameters
-  void addNextById(
-    FlowElement sourceElement,
-    String destId,
-    ArrowParams arrowParams, {
+  void addNextById({
+    required FlowElement sourceElement,
+    required String destinationId,
+    required Handler fromHandler,
+    required ArrowParams arrowParams,
     bool notify = true,
   }) {
     var found = 0;
     arrowParams.setScale(1, gridBackgroundParams.scale);
     for (var i = 0; i < elements.length; i++) {
-      if (elements[i].id == destId) {
+      if (elements[i].id == destinationId) {
         // if the [id] already exist, remove it and add this new connection
         sourceElement.next
-            .removeWhere((element) => element.destElementId == destId);
+            .removeWhere((element) => element.destElementId == destinationId);
         final conn = ConnectionParams(
           destElementId: elements[i].id,
+          fromHandler: fromHandler,
           arrowParams: arrowParams,
           pivots: [],
         );
@@ -569,7 +571,7 @@ class Dashboard extends ChangeNotifier {
     }
 
     if (found == 0) {
-      debugPrint('Element with $destId id not found!');
+      debugPrint('Element with $destinationId id not found!');
       return;
     }
     if (notify) {

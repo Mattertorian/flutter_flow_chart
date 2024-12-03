@@ -22,20 +22,20 @@ class ArrowParams extends ChangeNotifier {
   ArrowParams({
     this.thickness = 1.7,
     this.headRadius = 6,
-    double tailLength = 25.0,
+    double? tailLength,
     this.color = Colors.black,
     this.style = ArrowStyle.curve,
     this.tension = 1.0,
     this.startArrowPosition = Alignment.centerRight,
     this.endArrowPosition = Alignment.centerLeft,
-  }) : _tailLength = tailLength;
+  }) : _tailLength = tailLength ?? 25.0;
 
   ///
   factory ArrowParams.fromMap(Map<String, dynamic> map) {
     return ArrowParams(
       thickness: map['thickness'] as double,
       headRadius: map['headRadius'] as double? ?? 6.0,
-      tailLength: map['tailLength'] as double? ?? 25.0,
+      tailLength: map['tailLength'] as double?,
       color: Color(map['color'] as int),
       style: ArrowStyle.values[map['style'] as int? ?? 0],
       tension: map['tension'] as double? ?? 1,
@@ -105,7 +105,7 @@ class ArrowParams extends ChangeNotifier {
       'headRadius': headRadius,
       'tailLength': _tailLength,
       'color': color.value,
-      'style': style?.index,
+      'style': style.index,
       'tension': tension,
       'startArrowPositionX': startArrowPosition.x,
       'startArrowPositionY': startArrowPosition.y,
@@ -139,6 +139,14 @@ class DrawingArrow extends ChangeNotifier {
   /// Arrow parameters.
   ArrowParams params = ArrowParams();
 
+  /// The [Handler] from which this arrow originates
+  Handler? fromHandler;
+
+  void setHandler(Handler handler) {
+    this.fromHandler = handler;
+    notifyListeners();
+  }
+
   /// Sets the parameters.
   void setParams(ArrowParams params) {
     this.params = params;
@@ -171,6 +179,7 @@ class DrawingArrow extends ChangeNotifier {
   ///
   void reset() {
     params = ArrowParams();
+    fromHandler = null;
     from = Offset.zero;
     to = Offset.zero;
     notifyListeners();
@@ -182,6 +191,7 @@ class DrawingArrow extends ChangeNotifier {
 class DrawArrow extends StatefulWidget {
   ///
   DrawArrow({
+    required this.fromHandler,
     required this.srcElement,
     required this.destElement,
     required List<Pivot> pivots,
@@ -192,6 +202,8 @@ class DrawArrow extends StatefulWidget {
 
   ///
   final ArrowParams arrowParams;
+
+  final Handler fromHandler;
 
   ///
   final FlowElement srcElement;
@@ -261,6 +273,7 @@ class _DrawArrowState extends State<DrawArrow> {
               params: widget.arrowParams,
               from: from,
               to: to,
+              fromHandler: widget.fromHandler,
               pivots: widget.pivots.value,
             ),
             child: Container(),
@@ -278,6 +291,7 @@ class ArrowPainter extends CustomPainter {
   ///
   ArrowPainter({
     required this.params,
+    required this.fromHandler,
     required this.from,
     required this.to,
     List<Pivot>? pivots,
@@ -285,6 +299,9 @@ class ArrowPainter extends CustomPainter {
 
   ///
   final ArrowParams params;
+
+  /// The [Handler] from which this Arrow originates.
+  final Handler fromHandler;
 
   ///
   final Offset from;
@@ -317,9 +334,7 @@ class ArrowPainter extends CustomPainter {
 
     canvas.drawCircle(to, params.headRadius, paint);
 
-    paint
-      ..color = params.color
-      ..style = PaintingStyle.stroke;
+    paint..style = PaintingStyle.stroke;
     canvas.drawPath(path, paint);
   }
 
@@ -381,7 +396,19 @@ class ArrowPainter extends CustomPainter {
     var dx = 0.0;
     var dy = 0.0;
 
-    final p0 = Offset(from.dx, from.dy);
+    final p0 = Offset(
+        from.dx +
+            switch (fromHandler) {
+              Handler.rightCenter => params.tailLength,
+              Handler.leftCenter => -params.tailLength,
+              _ => 0,
+            },
+        from.dy +
+            switch (fromHandler) {
+              Handler.topCenter => -params.tailLength,
+              Handler.bottomCenter => params.tailLength,
+              _ => 0,
+            });
     final p4 = Offset(to.dx, to.dy);
     distance = (p4 - p0).distance / 3;
 

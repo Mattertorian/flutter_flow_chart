@@ -165,9 +165,10 @@ class _ElementHandler extends StatelessWidget {
         },
         onAcceptWithDetails: (details) {
           dashboard.addNextById(
-            details.data['srcElement'] as FlowElement,
-            element.id,
-            DrawingArrow.instance.params.copyWith(
+            sourceElement: details.data['srcElement'] as FlowElement,
+            destinationId: element.id,
+            fromHandler: handler,
+            arrowParams: DrawingArrow.instance.params.copyWith(
               endArrowPosition: alignment,
             ),
           );
@@ -240,6 +241,7 @@ class _ElementHandler extends StatelessWidget {
                 );
                 DrawingArrow.instance.from =
                     details.globalPosition - dashboard.position;
+                DrawingArrow.instance.setHandler(handler);
                 isDragging = true;
               }
               DrawingArrow.instance.setTo(

@@ -329,6 +329,7 @@ class _FlowChartState extends State<FlowChart> {
             for (int n = 0; n < widget.dashboard.elements[i].next.length; n++)
               DrawArrow(
                 key: UniqueKey(),
+                fromHandler: widget.dashboard.elements[i].next[n].fromHandler,
                 srcElement: widget.dashboard.elements[i],
                 destElement: widget
                     .dashboard.elements[widget.dashboard.findElementIndexById(
@@ -395,6 +396,7 @@ class _DrawingArrowWidgetState extends State<DrawingArrowWidget> {
     return CustomPaint(
       painter: ArrowPainter(
         params: DrawingArrow.instance.params,
+        fromHandler: DrawingArrow.instance.fromHandler!,
         from: DrawingArrow.instance.from,
         to: DrawingArrow.instance.to,
       ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:flutter_flow_chart/flutter_flow_chart.dart';
 import 'package:flutter_flow_chart/src/ui/draw_arrow.dart';
 import 'package:flutter_flow_chart/src/ui/segment_handler.dart';
 
@@ -9,6 +10,7 @@ class ConnectionParams {
   ///
   ConnectionParams({
     required this.destElementId,
+    required this.fromHandler,
     required this.arrowParams,
     List<Pivot>? pivots,
   }) : pivots = pivots ?? [];
@@ -17,6 +19,7 @@ class ConnectionParams {
   factory ConnectionParams.fromMap(Map<String, dynamic> map) {
     return ConnectionParams(
       destElementId: map['destElementId'] as String,
+      fromHandler: Handler.values[(map['fromHandler'] as int)],
       arrowParams:
           ArrowParams.fromMap(map['arrowParams'] as Map<String, dynamic>),
       pivots: (map['pivots'] as List?)
@@ -35,6 +38,9 @@ class ConnectionParams {
   /// Unique element ID where this connection points.
   final String destElementId;
 
+  /// The handler from which this connection originates.
+  final Handler fromHandler;
+
   /// Arrow parameters.
   final ArrowParams arrowParams;
 
@@ -45,6 +51,7 @@ class ConnectionParams {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'destElementId': destElementId,
+      'fromHandler': fromHandler.index,
       'arrowParams': arrowParams.toMap(),
       'pivots': pivots.map((pivots) => pivots.toMap()).toList(),
     };
