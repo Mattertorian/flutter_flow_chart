@@ -21,16 +21,17 @@ typedef ConnectionListener = void Function(
 /// It notifies changes to [FlowChart]
 class Dashboard extends ChangeNotifier {
   ///
-  Dashboard({
-    Offset? handlerFeedbackOffset,
-    this.blockDefaultZoomGestures = false,
-    this.minimumZoomFactor = 0.25,
-    ArrowParams? defaultArrowParams,
-  })  : elements = [],
+  Dashboard(
+      {Offset? handlerFeedbackOffset,
+      this.blockDefaultZoomGestures = false,
+      this.minimumZoomFactor = 0.25,
+      ArrowParams? defaultArrowParams,
+      GridBackgroundParams? gridBackground})
+      : elements = [],
         defaultArrowParams = defaultArrowParams ?? ArrowParams(),
         _dashboardPosition = Offset.zero,
         dashboardSize = Size.zero,
-        gridBackgroundParams = GridBackgroundParams() {
+        gridBackgroundParams = gridBackground ?? GridBackgroundParams() {
     // This is a workaround to set the handlerFeedbackOffset
     // to improve the user experience on devices with touch screens
     // This will prevent the handler being covered by user's finger
