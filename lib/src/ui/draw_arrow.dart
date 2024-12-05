@@ -22,20 +22,20 @@ class ArrowParams extends ChangeNotifier {
   ArrowParams({
     this.thickness = 1.7,
     this.headRadius = 6,
-    double? tailLength,
+    this.tailLength = 25.0,
     this.color = Colors.black,
     this.style = ArrowStyle.curve,
     this.tension = 1.0,
     this.startArrowPosition = Alignment.centerRight,
     this.endArrowPosition = Alignment.centerLeft,
-  }) : _tailLength = tailLength ?? 25.0;
+  });
 
   ///
   factory ArrowParams.fromMap(Map<String, dynamic> map) {
     return ArrowParams(
       thickness: map['thickness'] as double,
       headRadius: map['headRadius'] as double? ?? 6.0,
-      tailLength: map['tailLength'] as double?,
+      tailLength: map['tailLength'] as double? ?? 25,
       color: Color(map['color'] as int),
       style: ArrowStyle.values[map['style'] as int? ?? 0],
       tension: map['tension'] as double? ?? 1,
@@ -70,7 +70,7 @@ class ArrowParams extends ChangeNotifier {
   final Alignment endArrowPosition;
 
   /// The tail length of the arrow.
-  double _tailLength;
+  double tailLength;
 
   /// The style of the arrow.
   ArrowStyle style;
@@ -85,6 +85,7 @@ class ArrowParams extends ChangeNotifier {
     Color? color,
     ArrowStyle? style,
     double? tension,
+    double? tailLength,
     Alignment? startArrowPosition,
     Alignment? endArrowPosition,
   }) {
@@ -93,6 +94,7 @@ class ArrowParams extends ChangeNotifier {
       color: color ?? this.color,
       style: style ?? this.style,
       tension: tension ?? this.tension,
+      tailLength: tailLength ?? this.tailLength,
       startArrowPosition: startArrowPosition ?? this.startArrowPosition,
       endArrowPosition: endArrowPosition ?? this.endArrowPosition,
     );
@@ -103,7 +105,7 @@ class ArrowParams extends ChangeNotifier {
     return <String, dynamic>{
       'thickness': thickness,
       'headRadius': headRadius,
-      'tailLength': _tailLength,
+      'tailLength': tailLength,
       'color': color.value,
       'style': style.index,
       'tension': tension,
@@ -121,12 +123,9 @@ class ArrowParams extends ChangeNotifier {
   void setScale(double currentZoom, double factor) {
     thickness = thickness / currentZoom * factor;
     headRadius = headRadius / currentZoom * factor;
-    _tailLength = _tailLength / currentZoom * factor;
+    tailLength = tailLength / currentZoom * factor;
     notifyListeners();
   }
-
-  ///
-  double get tailLength => _tailLength;
 }
 
 /// Notifier to update arrows position, starting/ending points and params
