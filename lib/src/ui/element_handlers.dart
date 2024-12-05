@@ -239,6 +239,7 @@ class _ElementHandler extends StatelessWidget {
                   startArrowPosition: alignment,
                   endArrowPosition: Alignment.center,
                 );
+
                 DrawingArrow.instance.from =
                     details.globalPosition - dashboard.position;
                 DrawingArrow.instance.setHandler(handler);
