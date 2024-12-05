@@ -414,13 +414,13 @@ class ArrowPainter extends CustomPainter {
 
     final p0 = Offset(
         from.dx +
-            switch (params.startArrowPosition.x) {
+            switch (params.startArrowPosition) {
               Alignment.centerRight => params.tailLength,
               Alignment.centerLeft => -params.tailLength,
               _ => 0,
             },
         from.dy +
-            switch (params.startArrowPosition.y) {
+            switch (params.startArrowPosition) {
               Alignment.topCenter => -params.tailLength,
               Alignment.bottomCenter => params.tailLength,
               _ => 0,
