@@ -400,15 +400,31 @@ class ArrowPainter extends CustomPainter {
     //   from.dy * params.startArrowPosition.y,
     // );
 
+    print('start alignment: ${params.startArrowPosition}');
+
+    // final p0 = Offset(
+    //     from.dx +
+    //         (params.startArrowPosition.x > 0
+    //             ? params.tailLength
+    //             : -params.tailLength),
+    //     from.dy +
+    //         (params.startArrowPosition.y > 0
+    //             ? params.tailLength
+    //             : -params.tailLength));
+
     final p0 = Offset(
         from.dx +
-            (params.startArrowPosition.x > 0
-                ? params.tailLength
-                : -params.tailLength),
+            switch (params.startArrowPosition.x) {
+              Alignment.centerRight => params.tailLength,
+              Alignment.centerLeft => -params.tailLength,
+              _ => 0,
+            },
         from.dy +
-            (params.startArrowPosition.y > 0
-                ? params.tailLength
-                : -params.tailLength));
+            switch (params.startArrowPosition.y) {
+              Alignment.topCenter => -params.tailLength,
+              Alignment.bottomCenter => params.tailLength,
+              _ => 0,
+            });
 
     // final p0 = Offset(
     //     from.dx +
