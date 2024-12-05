@@ -395,8 +395,13 @@ class ArrowPainter extends CustomPainter {
     var dx = 0.0;
     var dy = 0.0;
 
-    final p0 = Offset(from.dx + params.tailLength * params.startArrowPosition.x,
-        dy + params.tailLength * params.startArrowPosition.y);
+    final p0 = Offset(
+        from.dx + params.startArrowPosition.x > 0
+            ? params.tailLength
+            : -params.tailLength,
+        dy + params.startArrowPosition.y > 0
+            ? params.tailLength
+            : -params.tailLength);
 
     // final p0 = Offset(
     //     from.dx +
