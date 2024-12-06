@@ -395,23 +395,6 @@ class ArrowPainter extends CustomPainter {
     var dx = 0.0;
     var dy = 0.0;
 
-    // final p0 = Offset(
-    //   from.dx * params.startArrowPosition.x,
-    //   from.dy * params.startArrowPosition.y,
-    // );
-
-    print('start alignment: ${params.startArrowPosition}');
-
-    // final p0 = Offset(
-    //     from.dx +
-    //         (params.startArrowPosition.x > 0
-    //             ? params.tailLength
-    //             : -params.tailLength),
-    //     from.dy +
-    //         (params.startArrowPosition.y > 0
-    //             ? params.tailLength
-    //             : -params.tailLength));
-
     final p0 = Offset(
         from.dx +
             switch (params.startArrowPosition) {
@@ -426,20 +409,6 @@ class ArrowPainter extends CustomPainter {
               _ => 0,
             });
 
-    // final p0 = Offset(
-    //     from.dx +
-    //         switch (fromHandler) {
-    //           Handler.rightCenter => params.tailLength,
-    //           Handler.leftCenter => -params.tailLength,
-    //           _ => 0,
-    //         },
-    //     from.dy +
-    //         switch (fromHandler) {
-    //           Handler.topCenter => -params.tailLength,
-    //           Handler.bottomCenter => params.tailLength,
-    //           _ => 0,
-    //         });
-    // final p0 = Offset(from.dx, from.dy);
     final p4 = Offset(to.dx, to.dy);
     distance = (p4 - p0).distance / 3;
 
