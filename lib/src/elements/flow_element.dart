@@ -68,6 +68,7 @@ class FlowElement extends ChangeNotifier {
     this.size = Size.zero,
     this.text = '',
     this.textColor = Colors.black,
+    this.contentPadding = const EdgeInsets.all(4),
     this.fontFamily,
     this.textSize = 24,
     this.textIsBold = false,
@@ -105,6 +106,11 @@ class FlowElement extends ChangeNotifier {
       size: Size(map['size.width'] as double, map['size.height'] as double),
       text: map['text'] as String,
       textColor: Color(map['textColor'] as int),
+      contentPadding: EdgeInsets.fromLTRB(
+          map['contentPadding']['left'] as double,
+          map['contentPadding']['top'] as double,
+          map['contentPadding']['right'] as double,
+          map['contentPadding']['bottom'] as double),
       fontFamily: map['fontFamily'] as String?,
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
@@ -161,6 +167,9 @@ class FlowElement extends ChangeNotifier {
 
   /// Text font family
   String? fontFamily;
+
+  /// Padding for the text in the element
+  EdgeInsets contentPadding;
 
   /// Text size
   double textSize;
@@ -352,6 +361,12 @@ class FlowElement extends ChangeNotifier {
       'size.height': size.height,
       'text': text,
       'textColor': textColor.value,
+      'contentPadding': {
+        'left': contentPadding.left,
+        'top': contentPadding.top,
+        'right': contentPadding.right,
+        'bottom': contentPadding.bottom,
+      },
       'fontFamily': fontFamily,
       'textSize': textSize,
       'textIsBold': textIsBold,

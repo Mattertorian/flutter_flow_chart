@@ -39,13 +39,20 @@ class _ElementTextWidgetState extends State<ElementTextWidget> {
 
     return Align(
       child: widget.element.isEditingText
-          ? TextFormField(
-              controller: _controller,
-              autofocus: true,
-              onTapOutside: (event) => dismissTextEditor(),
-              onFieldSubmitted: dismissTextEditor,
-              textAlign: TextAlign.center,
-              style: textStyle,
+          ? SizedBox(
+              width: widget.element.size.width,
+              height: widget.element.size.height,
+              child: Padding(
+                padding: widget.element.contentPadding,
+                child: TextFormField(
+                  controller: _controller,
+                  autofocus: true,
+                  onTapOutside: (event) => dismissTextEditor(),
+                  onFieldSubmitted: dismissTextEditor,
+                  textAlign: TextAlign.center,
+                  style: textStyle,
+                ),
+              ),
             )
           : Text(
               widget.element.text,
