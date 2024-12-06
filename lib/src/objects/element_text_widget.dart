@@ -44,16 +44,25 @@ class _ElementTextWidgetState extends State<ElementTextWidget> {
               height: widget.element.size.height,
               child: Padding(
                 padding: widget.element.contentPadding,
-                child: TextFormField(
-                  controller: _controller,
-                  autofocus: true,
-                  onTapOutside: (event) => dismissTextEditor(),
-                  onFieldSubmitted: dismissTextEditor,
-                  textAlign: TextAlign.center,
-                  style: textStyle,
-                  maxLines: null,
-                  // expands: true,
-                  decoration: const InputDecoration.collapsed(hintText: ''),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: TextFormField(
+                        controller: _controller,
+                        autofocus: true,
+                        onTapOutside: (event) => dismissTextEditor(),
+                        onFieldSubmitted: dismissTextEditor,
+                        textAlign: TextAlign.center,
+                        style: textStyle,
+                        maxLines: null,
+                        // expands: true,
+                        decoration:
+                            const InputDecoration.collapsed(hintText: ''),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             )
