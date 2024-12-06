@@ -52,7 +52,8 @@ class _ElementTextWidgetState extends State<ElementTextWidget> {
                   textAlign: TextAlign.center,
                   style: textStyle,
                   maxLines: null,
-                  expands: true,
+                  // expands: true,
+                  decoration: const InputDecoration.collapsed(hintText: ''),
                 ),
               ),
             )

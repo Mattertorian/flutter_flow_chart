@@ -70,6 +70,7 @@ class FlowElement extends ChangeNotifier {
     this.textColor = Colors.black,
     this.contentPadding = const EdgeInsets.all(4),
     this.fontFamily,
+    this.textAlign = TextAlign.center,
     this.textSize = 24,
     this.textIsBold = false,
     this.kind = ElementKind.rectangle,
@@ -112,6 +113,8 @@ class FlowElement extends ChangeNotifier {
           map['contentPadding']['right'] as double,
           map['contentPadding']['bottom'] as double),
       fontFamily: map['fontFamily'] as String?,
+      textAlign: TextAlign.values
+          .firstWhere((value) => value.name == (map['textAlign'] as String)),
       textSize: map['textSize'] as double,
       textIsBold: map['textIsBold'] as bool,
       kind: ElementKind.values[map['kind'] as int],
@@ -167,6 +170,9 @@ class FlowElement extends ChangeNotifier {
 
   /// Text font family
   String? fontFamily;
+
+  /// Alignment of the text in the element
+  TextAlign textAlign;
 
   /// Padding for the text in the element
   EdgeInsets contentPadding;
@@ -368,6 +374,7 @@ class FlowElement extends ChangeNotifier {
         'bottom': contentPadding.bottom,
       },
       'fontFamily': fontFamily,
+      'textAlign': textAlign.name,
       'textSize': textSize,
       'textIsBold': textIsBold,
       'id': id,
