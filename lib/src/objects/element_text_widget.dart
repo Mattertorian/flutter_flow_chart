@@ -51,6 +51,8 @@ class _ElementTextWidgetState extends State<ElementTextWidget> {
                   onFieldSubmitted: dismissTextEditor,
                   textAlign: TextAlign.center,
                   style: textStyle,
+                  maxLines: null,
+                  expands: true,
                 ),
               ),
             )
